@@ -6,6 +6,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -52,6 +54,132 @@
             </objects>
             <point key="canvasLocation" x="1046" y="-50"/>
         </scene>
+        <!--PopupVC-->
+        <scene sceneID="buZ-Ab-A1A">
+            <objects>
+                <viewController storyboardIdentifier="PopupVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4zL-XX-Xom" customClass="PopupVC" customModule="Core_Data_File_manager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="efU-wV-k0Q">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="UYr-TR-q12">
+                                <rect key="frame" x="94" y="80" width="187.5" height="187.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="UYr-TR-q12" secondAttribute="height" multiplier="1:1" id="eRF-mD-ipz"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zdw-uX-oKl">
+                                <rect key="frame" x="94" y="80" width="187.5" height="187.5"/>
+                                <connections>
+                                    <action selector="selectImageTapped:" destination="4zL-XX-Xom" eventType="touchUpInside" id="6nh-yv-1Ye"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oSM-mA-UBD">
+                                <rect key="frame" x="32" y="299.5" width="311" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="lPG-79-kLo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R1Z-d6-3RG">
+                                <rect key="frame" x="32" y="378" width="147.5" height="40"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="APx-eH-aXz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelTapped:" destination="4zL-XX-Xom" eventType="touchUpInside" id="lfP-JZ-xrh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLw-Ef-kBa">
+                                <rect key="frame" x="195.5" y="378" width="147.5" height="40"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveTapped:" destination="4zL-XX-Xom" eventType="touchUpInside" id="fkX-yd-25h"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="s5c-dd-nTy" firstAttribute="trailing" secondItem="oSM-mA-UBD" secondAttribute="trailing" constant="32" id="1In-Xd-NSl"/>
+                            <constraint firstItem="oSM-mA-UBD" firstAttribute="leading" secondItem="UYr-TR-q12" secondAttribute="trailing" constant="16" id="3wy-WK-fnp"/>
+                            <constraint firstItem="s5c-dd-nTy" firstAttribute="trailing" secondItem="oSM-mA-UBD" secondAttribute="trailing" constant="16" id="5No-0P-iV3"/>
+                            <constraint firstItem="zdw-uX-oKl" firstAttribute="bottom" secondItem="UYr-TR-q12" secondAttribute="bottom" id="8QL-RE-zUX"/>
+                            <constraint firstItem="R1Z-d6-3RG" firstAttribute="top" secondItem="oSM-mA-UBD" secondAttribute="bottom" constant="38.5" id="8mC-Zq-e2I"/>
+                            <constraint firstItem="pLw-Ef-kBa" firstAttribute="trailing" secondItem="oSM-mA-UBD" secondAttribute="trailing" id="AjO-C3-uoG"/>
+                            <constraint firstItem="R1Z-d6-3RG" firstAttribute="leading" secondItem="oSM-mA-UBD" secondAttribute="leading" id="HXv-Jl-mHa"/>
+                            <constraint firstItem="oSM-mA-UBD" firstAttribute="top" secondItem="UYr-TR-q12" secondAttribute="bottom" constant="32" id="IWK-T8-xlI"/>
+                            <constraint firstItem="pLw-Ef-kBa" firstAttribute="leading" secondItem="R1Z-d6-3RG" secondAttribute="trailing" constant="16" id="Kct-FI-eYg"/>
+                            <constraint firstItem="zdw-uX-oKl" firstAttribute="trailing" secondItem="UYr-TR-q12" secondAttribute="trailing" id="M06-gF-jFw"/>
+                            <constraint firstItem="zdw-uX-oKl" firstAttribute="top" secondItem="UYr-TR-q12" secondAttribute="top" id="O1Q-pp-KXb"/>
+                            <constraint firstItem="UYr-TR-q12" firstAttribute="centerX" secondItem="efU-wV-k0Q" secondAttribute="centerX" id="P8u-rp-K0F"/>
+                            <constraint firstItem="UYr-TR-q12" firstAttribute="width" secondItem="efU-wV-k0Q" secondAttribute="width" multiplier="0.5" id="RVS-r3-CFq"/>
+                            <constraint firstItem="s5c-dd-nTy" firstAttribute="bottom" secondItem="UYr-TR-q12" secondAttribute="bottom" constant="16" id="STz-dp-A90"/>
+                            <constraint firstItem="zdw-uX-oKl" firstAttribute="leading" secondItem="UYr-TR-q12" secondAttribute="leading" id="SoC-tQ-5wB"/>
+                            <constraint firstItem="oSM-mA-UBD" firstAttribute="leading" secondItem="s5c-dd-nTy" secondAttribute="leading" constant="32" id="Yr7-9g-mkv"/>
+                            <constraint firstItem="UYr-TR-q12" firstAttribute="leading" secondItem="s5c-dd-nTy" secondAttribute="leading" constant="16" id="aK1-K1-AEx"/>
+                            <constraint firstItem="oSM-mA-UBD" firstAttribute="centerY" secondItem="zdw-uX-oKl" secondAttribute="centerY" constant="-80" id="dNQ-bO-ckt"/>
+                            <constraint firstItem="UYr-TR-q12" firstAttribute="top" secondItem="s5c-dd-nTy" secondAttribute="top" constant="16" id="gvA-X1-ag8"/>
+                            <constraint firstItem="pLw-Ef-kBa" firstAttribute="height" secondItem="R1Z-d6-3RG" secondAttribute="height" id="gw2-4J-fcG"/>
+                            <constraint firstItem="pLw-Ef-kBa" firstAttribute="centerY" secondItem="R1Z-d6-3RG" secondAttribute="centerY" id="jIB-vQ-uLB"/>
+                            <constraint firstItem="pLw-Ef-kBa" firstAttribute="width" secondItem="R1Z-d6-3RG" secondAttribute="width" id="kjg-Ks-dvg"/>
+                            <constraint firstItem="UYr-TR-q12" firstAttribute="top" secondItem="s5c-dd-nTy" secondAttribute="top" constant="60" id="qvj-ah-RRT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="s5c-dd-nTy"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="1In-Xd-NSl"/>
+                                <exclude reference="5No-0P-iV3"/>
+                                <exclude reference="STz-dp-A90"/>
+                                <exclude reference="P8u-rp-K0F"/>
+                                <exclude reference="RVS-r3-CFq"/>
+                                <exclude reference="aK1-K1-AEx"/>
+                                <exclude reference="gvA-X1-ag8"/>
+                                <exclude reference="qvj-ah-RRT"/>
+                                <exclude reference="3wy-WK-fnp"/>
+                                <exclude reference="Yr7-9g-mkv"/>
+                                <exclude reference="dNQ-bO-ckt"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="5No-0P-iV3"/>
+                                <include reference="STz-dp-A90"/>
+                                <include reference="aK1-K1-AEx"/>
+                                <include reference="gvA-X1-ag8"/>
+                                <include reference="3wy-WK-fnp"/>
+                                <include reference="dNQ-bO-ckt"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="1In-Xd-NSl"/>
+                                <include reference="P8u-rp-K0F"/>
+                                <include reference="RVS-r3-CFq"/>
+                                <include reference="qvj-ah-RRT"/>
+                                <include reference="Yr7-9g-mkv"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="imgUser" destination="UYr-TR-q12" id="hpr-4o-JYG"/>
+                        <outlet property="txtName" destination="oSM-mA-UBD" id="JVb-9E-uvc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4FN-2h-8QL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1799" y="-59"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="kST-l3-e61">
             <objects>
@@ -71,4 +199,7 @@
             <point key="canvasLocation" x="408" y="-49.475262368815599"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="camera" width="49" height="35"/>
+    </resources>
 </document>

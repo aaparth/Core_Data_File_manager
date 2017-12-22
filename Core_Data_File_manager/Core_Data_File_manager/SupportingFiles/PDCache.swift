@@ -16,7 +16,21 @@ class PDCache: NSObject {
         if let data = UIImagePNGRepresentation(image) {
             let filename = getDocumentsDirectory().appendingPathComponent("\(Key).png")
             print(filename)
-            try? data.write(to: filename)
+            do{
+                try data.write(to: filename)
+            } catch{
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func saveImageData(imageData: Data, Key: String){
+            let filename = getDocumentsDirectory().appendingPathComponent("\(Key).png")
+            print(filename)
+        do{
+            try imageData.write(to: filename)
+        } catch{
+            print(error.localizedDescription)
         }
     }
     

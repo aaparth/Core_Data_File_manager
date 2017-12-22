@@ -46,34 +46,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //MARK:- Button Actions
     
     @IBAction func addTapped(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "New Name",
-                                      message: "Add a new name",
-                                      preferredStyle: .alert)
         
-        let saveAction = UIAlertAction(title: "Save", style: .default) {
-            [unowned self] action in
-            
-            guard let textField = alert.textFields?.first,
-                let nameToSave = textField.text else {
-                    return
-            }
-            self.save(name: nameToSave, completionBloack: { (success) in
-                if success{
-                    self.tableView.reloadData()
-                }
+        let requestVC : PopupVC  = self.storyboard!.instantiateViewController(withIdentifier: "PopupVC") as! PopupVC
+        requestVC.saveData = { name, image in
+            requestVC.dismiss(animated: true, completion: {
+                self.save(name: name, image: image, completionBloack: { (success) in
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                })
             })
         }
-        
-        let cancelAction = UIAlertAction(title: "Cancel",
-                                         style: .default)
-        alert.addTextField()
-        alert.addAction(cancelAction)
-        alert.addAction(saveAction)
-        
-        present(alert, animated: true)
+        requestVC.providesPresentationContextTransitionStyle = true;
+        requestVC.definesPresentationContext = true;
+        requestVC.modalPresentationStyle=UIModalPresentationStyle.overCurrentContext
+        self.present(requestVC, animated: true, completion: nil)
     }
     
-    func save(name: String, completionBloack:((Bool)->Void)?){
+    func save(name: String,image: Data, completionBloack:((Bool)->Void)?){
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
             completionBloack!(false)
@@ -87,9 +77,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let entity = NSEntityDescription.entity(forEntityName: "Person", in: managedContext)!
         let person = NSManagedObject(entity: entity, insertInto: managedContext)
         
-        let image = UIImage(named: "img.png")
-        PDCache.sharedInstance.saveImage(image: image!, Key: imageKey)
-        
+        PDCache.sharedInstance.saveImageData(imageData: image, Key: imageKey)
         person.setValue(personId, forKey: "id")
         person.setValue(imageKey, forKey: "image")
         person.setValue(name, forKey: "name")
