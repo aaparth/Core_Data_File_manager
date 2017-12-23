@@ -24,13 +24,24 @@ class PDCache: NSObject {
         }
     }
     
-    func saveImageData(imageData: Data, Key: String){
+    func saveData(obj: ImgVideo, Key: String){
+        if obj.isVideo{
+            let filename = getDocumentsDirectory().appendingPathComponent("\(Key).mp4")
+            do{
+                let videoData = NSData(contentsOf: URL(string: obj.videoUrl)!)
+                try videoData?.write(to: filename, options: .atomic)
+            } catch{
+                print(error.localizedDescription)
+            }
+        } else{
             let filename = getDocumentsDirectory().appendingPathComponent("\(Key).png")
             print(filename)
-        do{
-            try imageData.write(to: filename)
-        } catch{
-            print(error.localizedDescription)
+            do{
+                let imageData = UIImagePNGRepresentation(obj.image!)!
+                try imageData.write(to: filename)
+            } catch{
+                print(error.localizedDescription)
+            }
         }
     }
     
@@ -39,6 +50,16 @@ class PDCache: NSObject {
         let filename = getDocumentsDirectory().appendingPathComponent("\(Key).png")
         if fileManager.fileExists(atPath: filename.path) {
             return UIImage(contentsOfFile: filename.path)
+        }
+        return nil
+    }
+    
+    func getData(Key: String) -> URL?{
+        let fileManager = FileManager.default
+        let filename = getDocumentsDirectory().appendingPathComponent("\(Key).mp4")
+        if fileManager.fileExists(atPath: filename.path){
+//            return NSData(contentsOfFile: filename.path)
+            return URL(fileURLWithPath: filename.path)
         }
         return nil
     }

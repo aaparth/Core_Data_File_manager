@@ -68,6 +68,10 @@
                                     <constraint firstAttribute="width" secondItem="UYr-TR-q12" secondAttribute="height" multiplier="1:1" id="eRF-mD-ipz"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lyl-3n-kNf">
+                                <rect key="frame" x="94" y="80" width="187.5" height="187.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zdw-uX-oKl">
                                 <rect key="frame" x="94" y="80" width="187.5" height="187.5"/>
                                 <connections>
@@ -126,13 +130,17 @@
                             <constraint firstItem="UYr-TR-q12" firstAttribute="width" secondItem="efU-wV-k0Q" secondAttribute="width" multiplier="0.5" id="RVS-r3-CFq"/>
                             <constraint firstItem="s5c-dd-nTy" firstAttribute="bottom" secondItem="UYr-TR-q12" secondAttribute="bottom" constant="16" id="STz-dp-A90"/>
                             <constraint firstItem="zdw-uX-oKl" firstAttribute="leading" secondItem="UYr-TR-q12" secondAttribute="leading" id="SoC-tQ-5wB"/>
+                            <constraint firstItem="lyl-3n-kNf" firstAttribute="bottom" secondItem="UYr-TR-q12" secondAttribute="bottom" id="XlE-Dh-Rne"/>
                             <constraint firstItem="oSM-mA-UBD" firstAttribute="leading" secondItem="s5c-dd-nTy" secondAttribute="leading" constant="32" id="Yr7-9g-mkv"/>
                             <constraint firstItem="UYr-TR-q12" firstAttribute="leading" secondItem="s5c-dd-nTy" secondAttribute="leading" constant="16" id="aK1-K1-AEx"/>
                             <constraint firstItem="oSM-mA-UBD" firstAttribute="centerY" secondItem="zdw-uX-oKl" secondAttribute="centerY" constant="-80" id="dNQ-bO-ckt"/>
+                            <constraint firstItem="lyl-3n-kNf" firstAttribute="trailing" secondItem="UYr-TR-q12" secondAttribute="trailing" id="ghc-U8-ie2"/>
                             <constraint firstItem="UYr-TR-q12" firstAttribute="top" secondItem="s5c-dd-nTy" secondAttribute="top" constant="16" id="gvA-X1-ag8"/>
                             <constraint firstItem="pLw-Ef-kBa" firstAttribute="height" secondItem="R1Z-d6-3RG" secondAttribute="height" id="gw2-4J-fcG"/>
+                            <constraint firstItem="lyl-3n-kNf" firstAttribute="top" secondItem="UYr-TR-q12" secondAttribute="top" id="iTo-H5-hOT"/>
                             <constraint firstItem="pLw-Ef-kBa" firstAttribute="centerY" secondItem="R1Z-d6-3RG" secondAttribute="centerY" id="jIB-vQ-uLB"/>
                             <constraint firstItem="pLw-Ef-kBa" firstAttribute="width" secondItem="R1Z-d6-3RG" secondAttribute="width" id="kjg-Ks-dvg"/>
+                            <constraint firstItem="lyl-3n-kNf" firstAttribute="leading" secondItem="UYr-TR-q12" secondAttribute="leading" id="oCB-4J-Jbb"/>
                             <constraint firstItem="UYr-TR-q12" firstAttribute="top" secondItem="s5c-dd-nTy" secondAttribute="top" constant="60" id="qvj-ah-RRT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="s5c-dd-nTy"/>
@@ -173,6 +181,7 @@
                     </view>
                     <connections>
                         <outlet property="imgUser" destination="UYr-TR-q12" id="hpr-4o-JYG"/>
+                        <outlet property="playerView" destination="lyl-3n-kNf" id="ftu-Ys-4gZ"/>
                         <outlet property="txtName" destination="oSM-mA-UBD" id="JVb-9E-uvc"/>
                     </connections>
                 </viewController>

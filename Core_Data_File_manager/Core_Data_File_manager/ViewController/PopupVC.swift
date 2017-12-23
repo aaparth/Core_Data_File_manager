@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVFoundation
+import MediaPlayer
 import MobileCoreServices
 
 class PopupVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -14,11 +16,15 @@ class PopupVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     @IBOutlet var imgUser: UIImageView!
     @IBOutlet var txtName: UITextField!
     
-    var saveData: ((String, Data)->Void)?
+    @IBOutlet var playerView: UIView!
+    
+    var obj = ImgVideo()
+    var player = AVPlayer()
+    
+    var saveData: ((String, ImgVideo)->Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,8 +36,9 @@ class PopupVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     }
     
     @IBAction func saveTapped(_ sender: UIButton){
-        let data = UIImagePNGRepresentation(self.imgUser.image!)
-        self.saveData!(self.txtName.text!, data!)
+//        let data = UIImagePNGRepresentation(self.imgUser.image!)
+        self.player.pause()
+        self.saveData!(self.txtName.text!, obj)
     }
     
     @IBAction func cancelTapped(_ sender: UIButton){
@@ -56,18 +63,44 @@ class PopupVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         picker.delegate = self
         picker.allowsEditing = true
         picker.sourceType = sourceType
+        picker.mediaTypes = ["public.image", "public.movie"]
         self.present(picker, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        let chosenImage = info[UIImagePickerControllerEditedImage] as! UIImage
-        dismiss(animated: true, completion: {
-            self.imgUser.image = chosenImage
-        })
+        
+        let mediaType = info[UIImagePickerControllerMediaType] as? String
+        if mediaType != nil || mediaType != ""{
+            if mediaType! == "public.movie"{
+                if (mediaType == (kUTTypeVideo as? String)) || (mediaType == (kUTTypeMovie as? String)) {
+                    let videoURL = info[UIImagePickerControllerMediaURL] as! URL
+                    self.obj.isVideo = true
+                    self.obj.videoUrl = "\(videoURL)"
+                    self.playVideo()
+//                    let videoData = NSData(contentsOf: videoURL)
+                }
+            } else{
+                let chosenImage = info[UIImagePickerControllerEditedImage] as! UIImage
+                self.obj.image = chosenImage
+                self.imgUser.image = chosenImage
+            }
+        }
+        dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    //MARK:- Play Video
+    
+    func playVideo(){
+        self.player = AVPlayer(url: URL(string: self.obj.videoUrl)!)
+        let avPlayerLayer:AVPlayerLayer = AVPlayerLayer(player: player)
+        avPlayerLayer.frame = CGRect(x: 0, y: 0, width: self.playerView.bounds.width, height: self.playerView.bounds.height)
+        self.playerView.layer.addSublayer(avPlayerLayer)
+        player.play()
+        
     }
     
 }

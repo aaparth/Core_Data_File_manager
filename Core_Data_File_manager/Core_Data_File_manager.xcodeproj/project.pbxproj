@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		751BC5701FEE758E00469A10 /* ImgVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751BC56F1FEE758E00469A10 /* ImgVideo.swift */; };
 		755B65701FED176700F6EF65 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755B656F1FED176700F6EF65 /* AppDelegate.swift */; };
 		755B65721FED176700F6EF65 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755B65711FED176700F6EF65 /* ViewController.swift */; };
 		755B65751FED176700F6EF65 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 755B65731FED176700F6EF65 /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		751BC56F1FEE758E00469A10 /* ImgVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgVideo.swift; sourceTree = "<group>"; };
 		755B656C1FED176700F6EF65 /* Core_Data_File_manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Core_Data_File_manager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		755B656F1FED176700F6EF65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		755B65711FED176700F6EF65 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +49,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		751BC56E1FEE756500469A10 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				751BC56F1FEE758E00469A10 /* ImgVideo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		755B65631FED176700F6EF65 = {
 			isa = PBXGroup;
 			children = (
@@ -69,6 +79,7 @@
 				755B656F1FED176700F6EF65 /* AppDelegate.swift */,
 				755B657E1FED176700F6EF65 /* Info.plist */,
 				755B65791FED176700F6EF65 /* Assets.xcassets */,
+				751BC56E1FEE756500469A10 /* Models */,
 				755B65881FED1F3000F6EF65 /* SupportingFiles */,
 				755B65871FED1EC100F6EF65 /* StoryBoard */,
 				755B65861FED1EA000F6EF65 /* ViewController */,
@@ -188,6 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				751BC5701FEE758E00469A10 /* ImgVideo.swift in Sources */,
 				755B65721FED176700F6EF65 /* ViewController.swift in Sources */,
 				755B658B1FED1F5800F6EF65 /* TVCell.swift in Sources */,
 				755B65781FED176700F6EF65 /* Core_Data_File_manager.xcdatamodeld in Sources */,
