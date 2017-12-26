@@ -21,19 +21,24 @@ class PopupVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     
     var obj = ImgVideo()
     var player = AVPlayer()
-    
+    var personEntry:PersonEntry?
     var saveData: ((String, ImgVideo)->Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    func configure(){
+        if personEntry != nil{
+            if (personEntry?.isVideo)!{
+                self.playVideo(videoUrl: PDCache.sharedInstance.getData(Key: (personEntry?.image)!)!)
+            } else{
+                imgUser.image = PDCache.sharedInstance.getImage(Key: (personEntry?.image!)!)
+            }
+        }
     }
     
     //MARK:- Button Actions
-    
     @IBAction func selectImageTapped(_ sender: UIButton){
         self.openPicker()
     }
@@ -86,7 +91,7 @@ class PopupVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                     let videoURL = info[UIImagePickerControllerMediaURL] as! URL
                     self.obj.isVideo = true
                     self.obj.videoUrl = "\(videoURL)"
-                    self.playVideo()
+                    self.playVideo(videoUrl: URL(string:self.obj.videoUrl)!)
                 }
             } else{
                 let chosenImage = info[UIImagePickerControllerEditedImage] as! UIImage
@@ -103,8 +108,8 @@ class PopupVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     
     //MARK:- Play Video
     
-    func playVideo(){
-        self.player = AVPlayer(url: URL(string: self.obj.videoUrl)!)
+    func playVideo(videoUrl: URL){
+        self.player = AVPlayer(url: videoUrl)
         let avPlayerLayer:AVPlayerLayer = AVPlayerLayer(player: player)
         avPlayerLayer.frame = CGRect(x: 0, y: 0, width: self.playerView.bounds.width, height: self.playerView.bounds.height)
         self.playerView.layer.addSublayer(avPlayerLayer)

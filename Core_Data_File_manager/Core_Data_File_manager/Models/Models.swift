@@ -19,22 +19,22 @@ class ImgVideo: NSObject {
 
 
 
-class PersonEntry: NSManagedObject{
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<PersonEntry> {
-        return NSFetchRequest<PersonEntry>(entityName: "Person")
-    }
-    
-    @NSManaged var name: String?
-    @NSManaged var image: String?
-    @NSManaged var isVideo: NSNumber?
-    
-    var video: Bool {
-        get {
-            return isVideo == NSNumber(value: true)
-        }
-        set {
-            isVideo = NSNumber(value: newValue)
-        }
-    }
-    
-}
+//class PersonEntry: NSManagedObject{
+//    @nonobjc public class func fetchRequest() -> NSFetchRequest<PersonEntry> {
+//        return NSFetchRequest<PersonEntry>(entityName: "Person")
+//    }
+//
+//    @NSManaged var name: String?
+//    @NSManaged var image: String?
+//    @NSManaged var isVideo: NSNumber?
+//
+//    var video: Bool {
+//        get {
+//            return isVideo == NSNumber(value: true)
+//        }
+//        set {
+//            isVideo = NSNumber(value: newValue)
+//        }
+//    }
+//}
+

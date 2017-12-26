@@ -15,8 +15,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     @IBOutlet var tableView: UITableView!
     
-    var personObj: [NSManagedObject] = [NSManagedObject]()
+    var personObj: [PersonEntry] = [PersonEntry]()
     
+    var fetchedResultsController: NSFetchedResultsController<PersonEntry> = NSFetchedResultsController()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "TVCell", bundle: nil), forCellReuseIdentifier: "TVCell")
@@ -31,13 +33,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Person")
+        let fetchRequest = NSFetchRequest<PersonEntry>(entityName: "PersonEntry")
         
         do{
             personObj = try managedContext.fetch(fetchRequest)
         } catch{
             print("Error fetching data")
         }
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -76,19 +81,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let imageKey = "\(name)_\(personId)"
         
         let managedContext = appDelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "Person", in: managedContext)!
-        let person = NSManagedObject(entity: entity, insertInto: managedContext)
+        let entity = NSEntityDescription.entity(forEntityName: "PersonEntry", in: managedContext)!
+        let person = PersonEntry(entity: entity, insertInto: managedContext)
         
         PDCache.sharedInstance.saveData(obj: image, Key: imageKey)
         
-        person.setValue(personId, forKey: "id")
-        person.setValue(imageKey, forKey: "image")
-        person.setValue(name, forKey: "name")
+        person.id = personId
+        person.image = imageKey
+        person.name = name
         
         if image.isVideo{
-            person.setValue(true, forKey: "isVideo")
+            person.isVideo = true
         } else{
-            person.setValue(false, forKey: "isVideo")
+            person.isVideo = true
         }
         
         do{
@@ -111,25 +116,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let singlePersonObj = self.personObj[indexPath.row]
         
-        if singlePersonObj.value(forKey: "name") is String{
-            cell.lblName.text = singlePersonObj.value(forKey: "name") as? String
+        if singlePersonObj.name != nil{
+            cell.lblName.text = singlePersonObj.name
         }
         
-        if let isVideo = singlePersonObj.value(forKey: "isVideo") as? Bool{
-            if let imgUrl = singlePersonObj.value(forKey: "image") as? String{
-                if isVideo{
-                    if let url = PDCache.sharedInstance.getData(Key: imgUrl){
-                        let player = AVPlayer(url: url)
-                        let avPlayerLayer:AVPlayerLayer = AVPlayerLayer(player: player)
-                        avPlayerLayer.frame = CGRect(x: 0, y: 0, width: cell.imgUser.bounds.width, height: cell.imgUser.bounds.height)
-                        cell.imgUser.layer.addSublayer(avPlayerLayer)
-                        cell.imgUser.clipsToBounds = true
-                        player.play()
-                    }
-                } else{
-                    if let userImage = PDCache.sharedInstance.getImage(Key: imgUrl){
-                        cell.imgUser.image = userImage
-                    }
+        if singlePersonObj.image != nil{
+            if singlePersonObj.isVideo{
+                if let url = PDCache.sharedInstance.getData(Key: singlePersonObj.image!){
+                    let player = AVPlayer(url: url)
+                    let avPlayerLayer:AVPlayerLayer = AVPlayerLayer(player: player)
+                    avPlayerLayer.frame = CGRect(x: 0, y: 0, width: cell.imgUser.bounds.width, height: cell.imgUser.bounds.height)
+                    cell.imgUser.layer.addSublayer(avPlayerLayer)
+                    cell.imgUser.clipsToBounds = true
+                    player.play()
+                }
+            } else{
+                if let userImage = PDCache.sharedInstance.getImage(Key: singlePersonObj.image!){
+                    cell.imgUser.image = userImage
                 }
             }
         }
@@ -140,5 +143,26 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return 100
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let requestVC : PopupVC  = self.storyboard!.instantiateViewController(withIdentifier: "PopupVC") as! PopupVC
+        
+        let singleEntry = self.fetchedResultsController.object(at: indexPath)
+        requestVC.personEntry = singleEntry
+        
+        requestVC.saveData = { name, obj in
+            requestVC.dismiss(animated: true, completion: {
+                self.save(name: name, image: obj, completionBloack: { (success) in
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                })
+            })
+        }
+        requestVC.providesPresentationContextTransitionStyle = true;
+        requestVC.definesPresentationContext = true;
+        requestVC.modalPresentationStyle=UIModalPresentationStyle.overCurrentContext
+        self.present(requestVC, animated: true, completion: nil)
+    }
 }
 
