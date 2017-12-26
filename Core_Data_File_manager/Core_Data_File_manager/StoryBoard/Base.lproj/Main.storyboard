@@ -180,6 +180,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="btnSelect" destination="zdw-uX-oKl" id="sNp-EQ-MhO"/>
                         <outlet property="imgUser" destination="UYr-TR-q12" id="hpr-4o-JYG"/>
                         <outlet property="playerView" destination="lyl-3n-kNf" id="ftu-Ys-4gZ"/>
                         <outlet property="txtName" destination="oSM-mA-UBD" id="JVb-9E-uvc"/>

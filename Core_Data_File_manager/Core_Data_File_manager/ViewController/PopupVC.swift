@@ -17,6 +17,7 @@ class PopupVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     @IBOutlet var txtName: UITextField!
     
     @IBOutlet var playerView: UIView!
+    @IBOutlet var btnSelect: UIButton!
     
     var obj = ImgVideo()
     var player = AVPlayer()
@@ -31,18 +32,27 @@ class PopupVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         super.didReceiveMemoryWarning()
     }
     
+    //MARK:- Button Actions
+    
     @IBAction func selectImageTapped(_ sender: UIButton){
         self.openPicker()
     }
     
     @IBAction func saveTapped(_ sender: UIButton){
-//        let data = UIImagePNGRepresentation(self.imgUser.image!)
         self.player.pause()
         self.saveData!(self.txtName.text!, obj)
     }
     
     @IBAction func cancelTapped(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func pauseVideo(sender:UITapGestureRecognizer){
+        if self.player.isPlaying{
+            self.player.pause()
+        } else{
+            self.player.play()
+        }
     }
     
     //MARK:- ImagePicker delegate
@@ -77,7 +87,6 @@ class PopupVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                     self.obj.isVideo = true
                     self.obj.videoUrl = "\(videoURL)"
                     self.playVideo()
-//                    let videoData = NSData(contentsOf: videoURL)
                 }
             } else{
                 let chosenImage = info[UIImagePickerControllerEditedImage] as! UIImage
@@ -99,8 +108,11 @@ class PopupVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         let avPlayerLayer:AVPlayerLayer = AVPlayerLayer(player: player)
         avPlayerLayer.frame = CGRect(x: 0, y: 0, width: self.playerView.bounds.width, height: self.playerView.bounds.height)
         self.playerView.layer.addSublayer(avPlayerLayer)
+        let pause = UITapGestureRecognizer(target: self, action: #selector(PopupVC.pauseVideo(sender:)))
+        self.playerView.isUserInteractionEnabled = true
+        self.playerView.addGestureRecognizer(pause)
+        self.btnSelect.removeFromSuperview()
         player.play()
-        
     }
     
 }
